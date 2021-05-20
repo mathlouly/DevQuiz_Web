@@ -3,7 +3,7 @@ import 'package:devquiz_web/app/modules/quizzes/widgets/quiz_tile/button_quiz_ti
 import 'package:devquiz_web/app/modules/quizzes/widgets/quiz_tile/icon_select/icon_select_widget.dart';
 import 'package:devquiz_web/core/core.dart';
 import 'package:devquiz_web/shared/models/quiz_model.dart';
-import 'package:devquiz_web/shared/widgets/question_tile/question_tile_widget.dart';
+import 'package:devquiz_web/shared/widgets/question/question_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -57,8 +57,8 @@ class _QuizTileWidgetState extends State<QuizTileWidget> {
                 ),
                 tilePadding: EdgeInsets.only(left: 10),
                 trailing: Container(width: 1, height: 1),
-                childrenPadding: EdgeInsets.only(top: 20, bottom: 20),
-                children: widget.quiz.questions.map((question) => QuestionTileWidget(question: question)).toList(),
+                childrenPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                children: widget.quiz.questions.map((question) => QuestionWidget(question: question)).toList(),
               ),
               Container(
                 padding: EdgeInsets.only(right: 10),

@@ -1,3 +1,5 @@
+import 'package:devquiz_web/app/modules/add_quiz/widgets/input_name_quiz/input_name_quiz_widget.dart';
+import 'package:devquiz_web/app/modules/add_quiz/widgets/questions/questions_widget.dart';
 import 'package:devquiz_web/app/modules/add_quiz/widgets/select_level_quiz/select_level_quiz_widget.dart';
 import 'package:devquiz_web/core/core.dart';
 import 'package:devquiz_web/shared/widgets/app_bar/app_bar_widget.dart';
@@ -14,6 +16,7 @@ class AddQuizPageState extends State<AddQuizPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBarWidget(
         title: "Novo Quiz",
         textStyleTitle: AppTextStyle.titlePage,
@@ -33,30 +36,10 @@ class AddQuizPageState extends State<AddQuizPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextFormField(
-                          decoration: InputDecoration(
-                            hintText: "Nome do Quiz",
-                          ),
-                        ),
+                        InputNameQuizWidget(),
                         SizedBox(height: 15),
-                        Text("Questões", style: AppTextStyle.titleQuiz),
-                        SizedBox(height: 10),
-                        Container(
-                          height: 330,
-                          decoration: BoxDecoration(
-                            border: Border.fromBorderSide(BorderSide(color: Colors.black, width: 1)),
-                          ),
-                          child: Scrollbar(
-                            isAlwaysShown: true,
-                            child: ListView.builder(
-                              itemCount: 50,
-                              itemBuilder: (_, i) => Text("Teste"),
-                            ),
-                          ),
-                        ),
+                        QuestionsWidget(),
                         SizedBox(height: 15),
-                        Text("Selecione o Level do Quiz", style: AppTextStyle.titleQuiz),
-                        SizedBox(height: 10),
                         SelectLevelQuizWidget(),
                       ],
                     ),

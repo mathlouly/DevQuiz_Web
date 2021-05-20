@@ -15,6 +15,7 @@ class QuizzesCubit extends Cubit<List<QuizModel>> {
 
   void getQuizzes() async {
     insertListInList = await _questionsRepository.getQuizzes();
+    await Future.delayed(Duration(seconds: 2));
     emit(listQuizModel);
   }
 

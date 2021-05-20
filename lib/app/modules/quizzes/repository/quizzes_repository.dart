@@ -6,10 +6,14 @@ class QuizzesRepository {
   String _baseUrl = "http://localhost:5000/api/quiz";
 
   Future<List<QuizModel>> getQuizzes() async {
-    var response = await dio.get(_baseUrl, options: Options(responseType: ResponseType.json));
-    List list = response.data;
-    List<QuizModel> listQuiz = list.map((e) => QuizModel.fromMap(e)).toList();
-    return listQuiz;
+    try {
+      var response = await dio.get(_baseUrl, options: Options(responseType: ResponseType.json));
+      List list = response.data;
+      List<QuizModel> listQuiz = list.map((e) => QuizModel.fromMap(e)).toList();
+      return listQuiz;
+    } catch (e) {
+      return <QuizModel>[];
+    }
   }
 
   Future<void> deleteQuiz({required idQuiz}) async {

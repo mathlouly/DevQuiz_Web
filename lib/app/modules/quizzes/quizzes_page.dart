@@ -44,10 +44,19 @@ class QuizzesPageState extends State<QuizzesPage> {
               padding: EdgeInsets.only(top: 30, bottom: 30),
               child: BlocBuilder<QuizzesCubit, List<QuizModel>>(
                 bloc: _quizzesCubit,
-                builder: (context, listQuizModel) => ListView.builder(
-                  itemCount: listQuizModel.length,
-                  itemBuilder: (context, i) => QuizTileWidget(quiz: listQuizModel.reversed.toList()[i], quizzesCubit: _quizzesCubit),
-                ),
+                builder: (context, listQuizModel) {
+                  return _quizzesCubit.state.isEmpty
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            backgroundColor: AppColors.purple,
+                            valueColor: AlwaysStoppedAnimation<Color>(AppColors.blue),
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: listQuizModel.length,
+                          itemBuilder: (context, i) => QuizTileWidget(quiz: listQuizModel.reversed.toList()[i], quizzesCubit: _quizzesCubit),
+                        );
+                },
               ),
             ),
           ),
