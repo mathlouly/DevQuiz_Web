@@ -1,13 +1,17 @@
 import 'package:devquiz_web/core/core.dart';
 import 'package:flutter/material.dart';
 
+typedef NameQuizzCallback = Function(String);
+
 class InputNameQuizWidget extends StatelessWidget {
-  const InputNameQuizWidget({Key? key}) : super(key: key);
+  final NameQuizzCallback callback;
+  const InputNameQuizWidget({Key? key, required this.callback}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
+        onChanged: (text) => callback(text),
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           hintText: "Nome do Quiz",
