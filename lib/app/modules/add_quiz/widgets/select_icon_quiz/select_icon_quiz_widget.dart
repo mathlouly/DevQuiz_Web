@@ -2,8 +2,6 @@ import 'package:devquiz_web/app/modules/add_quiz/widgets/select_icon_quiz/select
 import 'package:devquiz_web/core/core.dart';
 import 'package:flutter/material.dart';
 
-typedef getIconName = Function(String);
-
 class SelectIconQuizWidget extends StatefulWidget {
   final getIconName iconName;
   const SelectIconQuizWidget({Key? key, required this.iconName}) : super(key: key);

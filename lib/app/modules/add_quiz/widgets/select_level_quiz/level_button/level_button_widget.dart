@@ -2,13 +2,13 @@ import 'package:devquiz_web/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-typedef getNameQuiz = Function(String);
+typedef getLevelQuiz = Function(String);
 
 class LevelButtonWidget extends StatelessWidget {
   final String label;
   final bool isSelected;
   final VoidCallback onPressed;
-  final getNameQuiz nameQuiz;
+  final getLevelQuiz nameQuiz;
   LevelButtonWidget({Key? key, required this.isSelected, required this.label, required this.onPressed, required this.nameQuiz})
       : assert(["Fácil", "Médio", "Difícil", "Perito"].contains(label)),
         super(key: key);

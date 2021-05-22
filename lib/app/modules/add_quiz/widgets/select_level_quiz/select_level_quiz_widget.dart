@@ -2,8 +2,6 @@ import 'package:devquiz_web/app/modules/add_quiz/widgets/select_level_quiz/level
 import 'package:devquiz_web/core/core.dart';
 import 'package:flutter/material.dart';
 
-typedef getLevelQuiz = Function(String);
-
 class SelectLevelQuizWidget extends StatefulWidget {
   final getLevelQuiz levelQuiz;
   const SelectLevelQuizWidget({Key? key, required this.levelQuiz}) : super(key: key);
