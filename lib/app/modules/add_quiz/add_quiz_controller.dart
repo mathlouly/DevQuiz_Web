@@ -11,17 +11,21 @@ class AddQuizController {
     this.quizNotifier = ValueNotifier<QuizModel>(QuizModel(questions: []));
   }
 
+  titleQuiz(String title) => quizNotifier.value.title = title;
+
+  levelQuiz(String level) => quizNotifier.value.level = level;
+
+  iconQuiz(String icon) => quizNotifier.value.imagem = icon;
+
   addQuestion(QuestionModel question) {
     quizNotifier.value.questions.add(question);
   }
 
-  removeQuestion(QuestionModel question) => this.quizNotifier.value.questions.removeWhere((element) => element == question);
+  removeQuestion(QuestionModel question) => quizNotifier.value.questions.removeWhere((element) => element == question);
 
   List<QuestionModel> get listQuestion => quizNotifier.value.questions;
 
-  void postQuiz({required QuizModel quiz}) async {
-    await _repository.postQuiz(quiz: quiz).then((value) {
-      print(value);
-    });
+  Future<void> postQuiz() async {
+    await _repository.postQuiz(quiz: quizNotifier.value);
   }
 }

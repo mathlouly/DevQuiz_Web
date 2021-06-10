@@ -1,17 +1,16 @@
+import 'package:devquiz_web/app/modules/add_quiz/add_quiz_controller.dart';
 import 'package:devquiz_web/core/core.dart';
 import 'package:flutter/material.dart';
 
-typedef GetNameQuiz = Function(String);
-
 class InputNameQuizWidget extends StatelessWidget {
-  final GetNameQuiz nameQuizFun;
-  const InputNameQuizWidget({Key? key, required this.nameQuizFun}) : super(key: key);
+  final AddQuizController addQuizController;
+  const InputNameQuizWidget({Key? key, required this.addQuizController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
-        onChanged: (text) => nameQuizFun(text),
+        onChanged: (title) => addQuizController.titleQuiz(title),
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           hintText: "Nome do Quiz",

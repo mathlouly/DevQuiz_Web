@@ -1,10 +1,11 @@
+import 'package:devquiz_web/app/modules/add_quiz/add_quiz_controller.dart';
 import 'package:devquiz_web/app/modules/add_quiz/widgets/select_icon_quiz/select_icon/select_icon_widget.dart';
 import 'package:devquiz_web/core/core.dart';
 import 'package:flutter/material.dart';
 
 class SelectIconQuizWidget extends StatefulWidget {
-  final getIconName iconName;
-  const SelectIconQuizWidget({Key? key, required this.iconName}) : super(key: key);
+  final AddQuizController addQuizController;
+  const SelectIconQuizWidget({Key? key, required this.addQuizController}) : super(key: key);
 
   @override
   _SelectIconQuizWidgetState createState() => _SelectIconQuizWidgetState();
@@ -21,10 +22,10 @@ class _SelectIconQuizWidgetState extends State<SelectIconQuizWidget> {
         SizedBox(height: 10),
         Row(
           children: [
-            SelectIconWidget(image: AppImages.data, isSelect: isSelected[0], onTap: () => selectIcon(0), iconName: widget.iconName),
-            SelectIconWidget(image: AppImages.laptop, isSelect: isSelected[1], onTap: () => selectIcon(1), iconName: widget.iconName),
-            SelectIconWidget(image: AppImages.hierarchy, isSelect: isSelected[2], onTap: () => selectIcon(2), iconName: widget.iconName),
-            SelectIconWidget(image: AppImages.blocks, isSelect: isSelected[3], onTap: () => selectIcon(3), iconName: widget.iconName),
+            SelectIconWidget(image: AppImages.data, imageName: "data", isSelect: isSelected[0], onTap: () => selectIcon(0), addQuizController: widget.addQuizController),
+            SelectIconWidget(image: AppImages.laptop, imageName: "laptop",isSelect: isSelected[1], onTap: () => selectIcon(1), addQuizController: widget.addQuizController),
+            SelectIconWidget(image: AppImages.hierarchy, imageName: "hierarchy",isSelect: isSelected[2], onTap: () => selectIcon(2), addQuizController: widget.addQuizController),
+            SelectIconWidget(image: AppImages.blocks,imageName: "blocks", isSelect: isSelected[3], onTap: () => selectIcon(3), addQuizController: widget.addQuizController),
           ],
         )
       ],

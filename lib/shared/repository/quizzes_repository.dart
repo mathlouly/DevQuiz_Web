@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:devquiz_web/shared/models/quiz_model.dart';
 import 'package:dio/dio.dart';
 
@@ -26,9 +29,12 @@ class QuizzesRepository {
     } catch (e) {}
   }
 
-  Future<int> postQuiz({required QuizModel quiz}) async {
-    var response = await dio.post(_baseUrl, data: quiz);
+  Future<void> postQuiz({required QuizModel quiz}) async {
+    var response = await dio.post(_baseUrl,
+        data: quiz.toJson(),
+        options: Options(headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+        }));
     print(response.statusCode);
-    return response.statusCode ?? 400;
   }
 }

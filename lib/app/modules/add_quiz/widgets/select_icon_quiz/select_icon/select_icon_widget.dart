@@ -1,14 +1,14 @@
+import 'package:devquiz_web/app/modules/add_quiz/add_quiz_controller.dart';
 import 'package:devquiz_web/core/core.dart';
 import 'package:flutter/material.dart';
 
-typedef getIconName = Function(String);
-
 class SelectIconWidget extends StatelessWidget {
   final String image;
+  final String imageName;
   final bool isSelect;
   final VoidCallback onTap;
-  final getIconName iconName;
-  const SelectIconWidget({Key? key, required this.image, required this.isSelect, required this.onTap, required this.iconName}) : super(key: key);
+  final AddQuizController addQuizController;
+  const SelectIconWidget({Key? key, required this.image, required this.imageName, required this.isSelect, required this.onTap, required this.addQuizController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class SelectIconWidget extends StatelessWidget {
         child: InkWell(
           onTap: () {
             onTap();
-            iconName(image);
+            addQuizController.iconQuiz(imageName);
           },
           child: Container(
             height: 55,

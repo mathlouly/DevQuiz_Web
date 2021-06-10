@@ -54,13 +54,13 @@ class AddQuizPageState extends State<AddQuizPage> {
                           padding: EdgeInsets.only(right: 10),
                           child: Column(
                             children: [
-                              InputNameQuizWidget(nameQuizFun: getNameQuiz),
+                              InputNameQuizWidget(addQuizController: _addQuizController),
                               SizedBox(height: 15),
                               QuestionsWidget(addQuizController: _addQuizController),
                               SizedBox(height: 15),
-                              SelectLevelQuizWidget(levelQuiz: getLevelQuiz),
+                              SelectLevelQuizWidget(addQuizController: _addQuizController),
                               SizedBox(height: 15),
-                              SelectIconQuizWidget(iconName: getIconQuiz),
+                              SelectIconQuizWidget(addQuizController: _addQuizController),
                             ],
                           ),
                         ),
@@ -80,7 +80,10 @@ class AddQuizPageState extends State<AddQuizPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ButtonEndWidget.cancel(onPressed: () => Modular.to.pushNamed("/")),
-                      ButtonEndWidget.add(onPressed: () {}),
+                      ButtonEndWidget.add(onPressed: () async {
+                        await _addQuizController.postQuiz();
+                        Modular.to.pushNamed("/");
+                      }),
                     ],
                   ),
                 ],
