@@ -44,12 +44,28 @@ class QuizzesPageState extends State<QuizzesPage> {
                 valueListenable: quizzesController.listQuizzes,
                 builder: (context, quizzes, child) {
                   return quizzes.isEmpty
-                      ? Center(
-                          child: CircularProgressIndicator(
-                            backgroundColor: AppColors.purple,
-                            valueColor: AlwaysStoppedAnimation<Color>(AppColors.blue),
-                          ),
-                        )
+                      ? ValueListenableBuilder<bool>(
+                          valueListenable: quizzesController.emptyList,
+                          builder: (context, value, child) {
+                            return value
+                                ? Center(
+                                    child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Não encontrei o que você espera encontrar :(",
+                                        style: TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold),
+                                      ),
+                                      Icon(Icons.close, color: Colors.red, size: 120),
+                                    ],
+                                  ))
+                                : Center(
+                                    child: CircularProgressIndicator(
+                                      backgroundColor: AppColors.purple,
+                                      valueColor: AlwaysStoppedAnimation<Color>(AppColors.blue),
+                                    ),
+                                  );
+                          })
                       : ListView.builder(
                           itemCount: quizzes.length,
                           itemBuilder: (context, i) => QuizTileWidget(quiz: quizzes.reversed.toList()[i], quizzesController: quizzesController),

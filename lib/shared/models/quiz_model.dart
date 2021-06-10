@@ -6,13 +6,11 @@ class QuizModel {
   List<QuestionModel> questions;
   String? imagem;
   String? level;
-  QuizModel({
-    this.id,
-    this.title,
-    this.questions = const <QuestionModel>[],
-    this.imagem,
-    this.level,
-  });
+  QuizModel({this.id, this.title, this.questions = const <QuestionModel>[], this.imagem, this.level});
+
+  copyWith({id, title, questions = const <QuestionModel>[], imagem, level}) {
+    return QuizModel(id: id, questions: questions, imagem: imagem, level: level);
+  }
 
   Map<String, dynamic> toMap() {
     return {

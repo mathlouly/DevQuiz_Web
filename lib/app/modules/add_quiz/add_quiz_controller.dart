@@ -11,20 +11,20 @@ class AddQuizController {
     this.quizNotifier = ValueNotifier<QuizModel>(QuizModel(questions: []));
   }
 
+  addQuestion(QuestionModel question) {
+    quizNotifier.value.questions.add(question);
+    quizNotifier.value = quizNotifier.value.copyWith(questions: quizNotifier.value.questions);
+  }
+
   titleQuiz(String title) => quizNotifier.value.title = title;
 
   levelQuiz(String level) => quizNotifier.value.level = level;
 
   iconQuiz(String icon) => quizNotifier.value.imagem = icon;
 
-  addQuestion(QuestionModel question) {
-    quizNotifier.value.questions.add(question);
-    quizNotifier.notifyListeners();
-  }
-
   removeQuestion(QuestionModel question) {
     quizNotifier.value.questions.removeWhere((element) => element == question);
-    quizNotifier.notifyListeners();
+    quizNotifier.value = quizNotifier.value.copyWith(questions: quizNotifier.value.questions);
   }
 
   List<QuestionModel> get listQuestion => quizNotifier.value.questions;

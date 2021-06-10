@@ -6,10 +6,12 @@ class QuizzesController {
   final QuizzesRepository _repository = QuizzesRepository();
 
   final listQuizzes = ValueNotifier<List<QuizModel>>([]);
+  final emptyList = ValueNotifier<bool>(false);
 
   void getQuizzes() async {
     await Future.delayed(Duration(seconds: 2));
     listQuizzes.value = await _repository.getQuizzes();
+    listQuizzes.value.isEmpty ? emptyList.value = true : emptyList.value = false;
   }
 
   void deleteQuiz({required String idQuiz}) async {

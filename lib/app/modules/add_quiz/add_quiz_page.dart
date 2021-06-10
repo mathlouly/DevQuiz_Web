@@ -39,7 +39,7 @@ class AddQuizPageState extends State<AddQuizPage> {
       ),
       body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-          child: ValueListenableBuilder(
+          child: ValueListenableBuilder<QuizModel>(
             valueListenable: _addQuizController.quizNotifier,
             builder: (context, value, child) {
               return Column(
