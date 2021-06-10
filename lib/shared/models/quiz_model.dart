@@ -1,17 +1,17 @@
 import 'dart:convert';
 
 class QuizModel {
-  String id;
-  String title;
+  String? id;
+  String? title;
   List<QuestionModel> questions;
-  String imagem;
-  String level;
+  String? imagem;
+  String? level;
   QuizModel({
-    required this.id,
-    required this.title,
-    required this.questions,
-    required this.imagem,
-    required this.level,
+    this.id,
+    this.title,
+    this.questions = const <QuestionModel>[],
+    this.imagem,
+    this.level,
   });
 
   Map<String, dynamic> toMap() {

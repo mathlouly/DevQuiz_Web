@@ -1,3 +1,4 @@
+import 'package:devquiz_web/app/modules/add_quiz/add_quiz_controller.dart';
 import 'package:devquiz_web/app/modules/add_quiz/widgets/add_question/add_question_widget.dart';
 import 'package:devquiz_web/app/modules/add_quiz/widgets/button_end/button_end_widget.dart';
 import 'package:devquiz_web/app/modules/add_quiz/widgets/input_name_quiz/input_name_quiz_widget.dart';
@@ -8,6 +9,7 @@ import 'package:devquiz_web/core/core.dart';
 import 'package:devquiz_web/shared/models/quiz_model.dart';
 import 'package:devquiz_web/shared/widgets/app_bar/app_bar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class AddQuizPage extends StatefulWidget {
   final String title;
@@ -17,24 +19,13 @@ class AddQuizPage extends StatefulWidget {
 }
 
 class AddQuizPageState extends State<AddQuizPage> {
-  QuestionModel question = QuestionModel(title: "Programacao Orientada a Objeto", answers: <AnswerModel>[
-    AnswerModel(title: "Resposta 1", isRight: false),
-    AnswerModel(title: "Resposta 2", isRight: false),
-    AnswerModel(title: "Resposta 3", isRight: true),
-    AnswerModel(title: "Resposta 4", isRight: false),
-  ]);
-  String? nameQuiz;
-  List<QuestionModel> questions = [];
-  String? levelQuiz;
-  String? iconQuiz;
+  AddQuizController _addQuizController = AddQuizController();
+  late QuizModel quiz;
 
   @override
   void initState() {
     super.initState();
-    questions.add(question);
-    questions.add(question);
-    questions.add(question);
-    questions.add(question);
+    quiz = _addQuizController.quizNotifier.value;
   }
 
   @override
@@ -47,66 +38,60 @@ class AddQuizPageState extends State<AddQuizPage> {
         isLogo: false,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-        child: Column(
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.only(right: 10),
-                    child: Column(
-                      children: [
-                        InputNameQuizWidget(nameQuizFun: getNameQuiz),
-                        SizedBox(height: 15),
-                        QuestionsWidget(questions: questions, rmvQuestion: removeQuestion),
-                        SizedBox(height: 15),
-                        SelectLevelQuizWidget(levelQuiz: getLevelQuiz),
-                        SizedBox(height: 15),
-                        SelectIconQuizWidget(iconName: getIconQuiz),
-                      ],
-                    ),
+          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+          child: ValueListenableBuilder(
+            valueListenable: _addQuizController.quizNotifier,
+            builder: (context, value, child) {
+              return Column(
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.only(right: 10),
+                          child: Column(
+                            children: [
+                              InputNameQuizWidget(nameQuizFun: getNameQuiz),
+                              SizedBox(height: 15),
+                              QuestionsWidget(addQuizController: _addQuizController),
+                              SizedBox(height: 15),
+                              SelectLevelQuizWidget(levelQuiz: getLevelQuiz),
+                              SizedBox(height: 15),
+                              SelectIconQuizWidget(iconName: getIconQuiz),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.only(left: 10),
+                          child: AddQuestionWidget(addQuizController: _addQuizController),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Column(
-                      children: [
-                        AddQuestionWidget(),
-                      ],
-                    ),
+                  SizedBox(height: 30),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ButtonEndWidget.cancel(onPressed: () => Modular.to.pushNamed("/")),
+                      ButtonEndWidget.add(onPressed: () {}),
+                    ],
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 30),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ButtonEndWidget.cancel(onPressed: () {}),
-                ButtonEndWidget.add(onPressed: () {}),
-              ],
-            ),
-          ],
-        ),
-      ),
+                ],
+              );
+            },
+          )),
     );
   }
 
-  void getNameQuiz(String nameQuiz) => this.nameQuiz = nameQuiz;
-  void getListQuestions(List<QuestionModel> questions) => this.questions = questions;
-  void getLevelQuiz(String levelQuiz) => this.levelQuiz = levelQuiz;
-  void getIconQuiz(String iconQuiz) => this.iconQuiz = iconQuiz;
-
-  void removeQuestion(QuestionModel question) {
-    setState(() {
-      this.questions.removeWhere((element) => element == question);
-    });
-  }
+  void getNameQuiz(String nameQuiz) => this.quiz.title = nameQuiz;
+  void getListQuestions(List<QuestionModel> questions) => this.quiz.questions = questions;
+  void getLevelQuiz(String levelQuiz) => this.quiz.level = levelQuiz;
+  void getIconQuiz(String iconQuiz) => this.quiz.imagem = iconQuiz;
 }

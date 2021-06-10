@@ -1,4 +1,4 @@
-import 'package:devquiz_web/app/modules/quizzes/cubit/quizzes_cubit.dart';
+import 'package:devquiz_web/app/modules/quizzes/quizzes_controller.dart';
 import 'package:devquiz_web/app/modules/quizzes/widgets/quiz_tile/button_quiz_tile/button_quiz_tile_widget.dart';
 import 'package:devquiz_web/app/modules/quizzes/widgets/quiz_tile/icon_select/icon_select_widget.dart';
 import 'package:devquiz_web/core/core.dart';
@@ -9,8 +9,8 @@ import 'package:flutter/scheduler.dart';
 
 class QuizTileWidget extends StatefulWidget {
   final QuizModel quiz;
-  final QuizzesCubit quizzesCubit;
-  const QuizTileWidget({Key? key, required this.quiz, required this.quizzesCubit}) : super(key: key);
+  final QuizzesController quizzesController;
+  const QuizTileWidget({Key? key, required this.quiz, required this.quizzesController}) : super(key: key);
 
   @override
   _QuizTileWidgetState createState() => _QuizTileWidgetState();
@@ -49,10 +49,10 @@ class _QuizTileWidgetState extends State<QuizTileWidget> {
                 leading: Container(
                   width: 25,
                   height: 25,
-                  child: IconSelectWidget(iconeName: widget.quiz.imagem),
+                  child: IconSelectWidget(iconeName: widget.quiz.imagem!),
                 ),
                 title: Text(
-                  widget.quiz.title,
+                  widget.quiz.title!,
                   style: AppTextStyle.titleQuiz,
                 ),
                 tilePadding: EdgeInsets.only(left: 10),
@@ -72,7 +72,7 @@ class _QuizTileWidgetState extends State<QuizTileWidget> {
                     ),
                     ButtonQuizTileWidget.delete(
                       voidCallback: () {
-                        widget.quizzesCubit.deleteQuiz(idQuiz: widget.quiz.id);
+                        widget.quizzesController.deleteQuiz(idQuiz: widget.quiz.id!);
                       },
                       heightButton: heightExpansionTile,
                     ),

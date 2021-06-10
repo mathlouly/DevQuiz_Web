@@ -25,4 +25,10 @@ class QuizzesRepository {
       print(response.data);
     } catch (e) {}
   }
+
+  Future<int> postQuiz({required QuizModel quiz}) async {
+    var response = await dio.post(_baseUrl, data: quiz);
+    print(response.statusCode);
+    return response.statusCode ?? 400;
+  }
 }

@@ -1,10 +1,9 @@
-import 'package:devquiz_web/app/modules/quizzes/cubit/quizzes_cubit.dart';
+import 'package:devquiz_web/app/modules/quizzes/quizzes_controller.dart';
 import 'package:devquiz_web/app/modules/quizzes/widgets/quiz_tile/quiz_tile_widget.dart';
 import 'package:devquiz_web/core/core.dart';
 import 'package:devquiz_web/shared/models/quiz_model.dart';
 import 'package:devquiz_web/shared/widgets/app_bar/app_bar_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class QuizzesPage extends StatefulWidget {
@@ -14,13 +13,12 @@ class QuizzesPage extends StatefulWidget {
 }
 
 class QuizzesPageState extends State<QuizzesPage> {
-  final QuizzesCubit _quizzesCubit = Modular.get();
+  QuizzesController quizzesController = QuizzesController();
 
   @override
-  @override
-  void dispose() {
-    _quizzesCubit.close();
-    super.dispose();
+  void initState() {
+    super.initState();
+    quizzesController.getQuizzes();
   }
 
   @override
@@ -42,10 +40,10 @@ class QuizzesPageState extends State<QuizzesPage> {
             ),
             child: Container(
               padding: EdgeInsets.only(top: 30, bottom: 30),
-              child: BlocBuilder<QuizzesCubit, List<QuizModel>>(
-                bloc: _quizzesCubit,
-                builder: (context, listQuizModel) {
-                  return _quizzesCubit.state.isEmpty
+              child: ValueListenableBuilder<List<QuizModel>>(
+                valueListenable: quizzesController.listQuizzes,
+                builder: (context, quizzes, child) {
+                  return quizzes.isEmpty
                       ? Center(
                           child: CircularProgressIndicator(
                             backgroundColor: AppColors.purple,
@@ -53,8 +51,8 @@ class QuizzesPageState extends State<QuizzesPage> {
                           ),
                         )
                       : ListView.builder(
-                          itemCount: listQuizModel.length,
-                          itemBuilder: (context, i) => QuizTileWidget(quiz: listQuizModel.reversed.toList()[i], quizzesCubit: _quizzesCubit),
+                          itemCount: quizzes.length,
+                          itemBuilder: (context, i) => QuizTileWidget(quiz: quizzes.reversed.toList()[i], quizzesController: quizzesController),
                         );
                 },
               ),
@@ -66,7 +64,7 @@ class QuizzesPageState extends State<QuizzesPage> {
         padding: const EdgeInsets.only(right: 60, bottom: 60),
         child: FloatingActionButton(
           backgroundColor: AppColors.green,
-          onPressed: () {},
+          onPressed: () => Modular.to.pushNamed("/addquiz"),
           child: Icon(Icons.add, color: Colors.white, size: 30),
         ),
       ),
