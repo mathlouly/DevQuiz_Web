@@ -150,7 +150,6 @@ class _AddQuestionWidgetState extends State<AddQuestionWidget> {
                     ),
                   );
                   clearAll();
-                  widget.addQuizController.quizNotifier.notifyListeners();
                 }
               : null,
           child: Center(

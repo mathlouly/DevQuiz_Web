@@ -19,9 +19,13 @@ class AddQuizController {
 
   addQuestion(QuestionModel question) {
     quizNotifier.value.questions.add(question);
+    quizNotifier.notifyListeners();
   }
 
-  removeQuestion(QuestionModel question) => quizNotifier.value.questions.removeWhere((element) => element == question);
+  removeQuestion(QuestionModel question) {
+    quizNotifier.value.questions.removeWhere((element) => element == question);
+    quizNotifier.notifyListeners();
+  }
 
   List<QuestionModel> get listQuestion => quizNotifier.value.questions;
 

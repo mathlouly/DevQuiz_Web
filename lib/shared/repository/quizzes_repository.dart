@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:devquiz_web/shared/models/quiz_model.dart';
@@ -24,17 +23,17 @@ class QuizzesRepository {
       var formData = FormData.fromMap({
         "idQuiz": idQuiz,
       });
-      var response = await dio.delete(_baseUrl, data: formData);
-      print(response.data);
+      await dio.delete(_baseUrl, data: formData);
     } catch (e) {}
   }
 
   Future<void> postQuiz({required QuizModel quiz}) async {
-    var response = await dio.post(_baseUrl,
-        data: quiz.toJson(),
-        options: Options(headers: {
-          HttpHeaders.contentTypeHeader: "application/json",
-        }));
-    print(response.statusCode);
+    await dio.post(
+      _baseUrl,
+      data: quiz.toJson(),
+      options: Options(headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      }),
+    );
   }
 }

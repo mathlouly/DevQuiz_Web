@@ -1,3 +1,4 @@
+import 'package:devquiz_web/app/modules/add_quiz/add_quiz_controller.dart';
 import 'package:devquiz_web/core/color.dart';
 import 'package:devquiz_web/core/core.dart';
 import 'package:devquiz_web/shared/models/quiz_model.dart';
@@ -5,13 +6,11 @@ import 'package:devquiz_web/shared/widgets/question/answer/answer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-typedef removeQuestion = Function(QuestionModel);
-
 class QuestionWidget extends StatefulWidget {
   final QuestionModel question;
   final bool isDeleteButton;
-  final removeQuestion? onPressed;
-  const QuestionWidget({Key? key, required this.question, this.isDeleteButton = false, this.onPressed}) : super(key: key);
+  final AddQuizController? addQuizController;
+  const QuestionWidget({Key? key, required this.question, this.isDeleteButton = false, this.addQuizController}) : super(key: key);
 
   @override
   _QuestionWidgetState createState() => _QuestionWidgetState();
@@ -70,7 +69,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   ),
                   onPressed: () {
                     setState(() {
-                      widget.onPressed!(widget.question);
+                      widget.addQuizController!.removeQuestion(widget.question);
                     });
                   },
                   child: Icon(

@@ -25,7 +25,7 @@ class QuestionsWidget extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: ListView.builder(
                 itemCount: addQuizController.listQuestion.length,
-                itemBuilder: (_, i) => QuestionWidget(question: addQuizController.listQuestion[i], onPressed: addQuizController.removeQuestion, isDeleteButton: true),
+                itemBuilder: (_, i) => QuestionWidget(question: addQuizController.listQuestion[i], addQuizController: addQuizController, isDeleteButton: true),
               ),
             ),
           ),
